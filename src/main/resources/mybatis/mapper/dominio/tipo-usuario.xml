@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+       Copyright 2015-2016 the original author or authors.
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gp.mapper.dominio.TipoUsuarioMapper">
+
+    <resultMap id="TipoUsuarioResult" type="TipoUsuarioDto">
+        <id column="id" property="id"/>
+        <result column="fecha_creacion" property="fechaCreacion"/>
+        <result column="fecha_ultimo_update" property="fechaUltimoUpdate"/>
+        <result column="nombre" property="nombre"/>
+        <result column="descripcion" property="descripcion"/>
+    </resultMap>
+
+    <select id="buscarTodos" resultMap="TipoUsuarioResult" statementType="CALLABLE">
+        {call PKG_TIPO_USUARIO.PRC_GET_TIPOS_USUARIO(#{DATA, jdbcType=CURSOR, resultMap=TipoUsuarioResult, javaType=java.sql.ResultSet, mode=OUT})}
+    </select>
+    <insert id="guardar" statementType="CALLABLE">
+        {call PKG_TIPO_USUARIO.PRC_INS_TIPOS_USUARIO(
+          #{nombre, jdbcType=VARCHAR, javaType=java.lang.String, jdbcTypeName= V_NOMBRE, mode=IN },
+          #{descripcion, jdbcType=VARCHAR, javaType=java.lang.String, jdbcTypeName= V_DESCRIPCION,  mode=IN}
+        )}
+    </insert>
+
+
+</mapper>
