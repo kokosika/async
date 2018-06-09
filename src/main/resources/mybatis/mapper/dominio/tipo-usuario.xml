@@ -28,12 +28,26 @@
     <select id="buscarTodos" resultMap="TipoUsuarioResult" statementType="CALLABLE">
         {call PKG_TIPO_USUARIO.PRC_GET_TIPOS_USUARIO(#{DATA, jdbcType=CURSOR, resultMap=TipoUsuarioResult, javaType=java.sql.ResultSet, mode=OUT})}
     </select>
+    <select id="buscarPorId" resultMap="TipoUsuarioResult" statementType="CALLABLE">
+        {call PKG_TIPO_USUARIO.PRC_GET_BUSCAR_POR_ID(
+        	#{V_ID, jdbcType=NUMERIC, resultMap=TipoUsuarioResult, javaType=java.lang.Integer, mode=IN},
+        	#{DATA, jdbcType=CURSOR, resultMap=TipoUsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
     <insert id="guardar" statementType="CALLABLE">
         {call PKG_TIPO_USUARIO.PRC_INS_TIPOS_USUARIO(
           #{nombre, jdbcType=VARCHAR, javaType=java.lang.String, jdbcTypeName= V_NOMBRE, mode=IN },
           #{descripcion, jdbcType=VARCHAR, javaType=java.lang.String, jdbcTypeName= V_DESCRIPCION,  mode=IN}
         )}
     </insert>
+    <select id="editar" resultMap="TipoUsuarioResult" statementType="CALLABLE">
+        {call PKG_TIPO_USUARIO.PRC_EDI_TIPOS_USUARIO(
+        	#{V_ID, jdbcType=NUMERIC, javaType=java.lang.Integer, mode=IN},
+        	#{V_NOMBRE, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_DESCRIPCION, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{DATA, jdbcType=CURSOR, resultMap=TipoUsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
 
 
 </mapper>

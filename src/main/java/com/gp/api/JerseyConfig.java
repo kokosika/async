@@ -1,6 +1,9 @@
 package com.gp.api;
 
 import com.gp.api.rest.dominio.TipoUsuarioRest;
+
+import javax.ws.rs.ApplicationPath;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -15,10 +18,11 @@ import org.springframework.stereotype.Component;
  */
 @Configuration
 @Component
+@ApplicationPath(value = "api/rest")
 public class JerseyConfig extends ResourceConfig {
     /**
      * Constructor que crea una instancia de todos los servicios
-     * para si injeccion.
+     * para su injeccion.
      */
     public JerseyConfig() {
         register(TipoUsuarioRest.class);

@@ -31,7 +31,7 @@ public abstract class BaseRest<T extends IntegerIdDto> {
      * Injeccion de la base de los servicios para realizar metodos genericos
      */
     @Autowired
-    private BaseService baseService;
+    private BaseService<T> baseService;
 
     /**
      * Metodo lo Get que genera una respuesta asincrona
@@ -62,7 +62,7 @@ public abstract class BaseRest<T extends IntegerIdDto> {
      * Get del servicio
      * @return retorna el tipo BaseService
      */
-    protected BaseService getBaseService() {
+    protected BaseService<T> getBaseService() {
         return baseService;
     }
 
@@ -70,7 +70,7 @@ public abstract class BaseRest<T extends IntegerIdDto> {
      * Set del servicio
      * @param baseService set del tipo BaseServicio
      */
-    protected void setBaseService(final BaseService baseService) {
+    protected void setBaseService(final BaseService<T> baseService) {
         this.baseService = baseService;
     }
 }

@@ -35,7 +35,7 @@ public interface BaseCrudMapper<T extends IntegerIdDto> {
      * @param params parametros requeridos para la funcionalidad
      * @return retorna el registro encontrado por el procedimiento.
      */
-    public T buscarPorClave(Map<String, Object> params);
+    public T buscarPorId(Map<String, Object> params);
 
     /**
      * Guarda la entidad en la base de datos que se le pasara por parametros

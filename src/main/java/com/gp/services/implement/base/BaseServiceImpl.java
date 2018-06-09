@@ -31,13 +31,13 @@ public class BaseServiceImpl<T extends IntegerIdDto> implements BaseService<T> {
     /**
      * Repositorio base
      */
-    private final BaseCrudRepositorio baseCrudRepositorio;
+    private final BaseCrudRepositorio<T> baseCrudRepositorio;
 
     /**
      * Injeccion de dependencias
      * @param baseCrudRepositorio injeccion de BaseCrudRepositorio
      */
-    public BaseServiceImpl(BaseCrudRepositorio baseCrudRepositorio) {
+    public BaseServiceImpl(final BaseCrudRepositorio<T> baseCrudRepositorio) {
         this.baseCrudRepositorio = baseCrudRepositorio;
     }
 
@@ -51,10 +51,13 @@ public class BaseServiceImpl<T extends IntegerIdDto> implements BaseService<T> {
     public Observable<List<T>> buscarTodos() {
         return Observable.create(source -> {
             try {
+            	LOGGER.info("BaseServiceImpl: BEGIN");
                 final List<T> lista = this.baseCrudRepositorio.buscarTodos();
                 source.onNext(lista);
                 source.onComplete();
+                LOGGER.info("BaseServiceImpl: END");
             } catch (Exception ex) {
+            	LOGGER.info("BaseServiceImpl: ERROR= " + ex.getMessage());
                 source.onError(ex);
             }
         });

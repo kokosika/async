@@ -28,14 +28,14 @@ public class BaseCrudRepositorioImpl<T extends IntegerIdDto> implements BaseCrud
     /**
      * Injeccion de la base del mapper
      */
-    private final BaseCrudMapper baseCrudMapper;
+    private final BaseCrudMapper<T> baseCrudMapper;
 
     /**
      * Crea una instancia de BaseCrudRepositorioImpl
      * Injectara al BaseCrudMapper
      * @param baseCrudMapper type mapper
      */
-    public BaseCrudRepositorioImpl(final BaseCrudMapper baseCrudMapper) {
+    public BaseCrudRepositorioImpl(final BaseCrudMapper<T> baseCrudMapper) {
         this.baseCrudMapper = baseCrudMapper;
     }
 
