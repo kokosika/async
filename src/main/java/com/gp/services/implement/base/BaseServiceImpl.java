@@ -20,7 +20,6 @@ import java.util.List;
  * @author Franco Cortez
  * @version 1.0
  */
-@Transactional
 public class BaseServiceImpl<T extends IntegerIdDto> implements BaseService<T> {
 
     /**
@@ -31,13 +30,13 @@ public class BaseServiceImpl<T extends IntegerIdDto> implements BaseService<T> {
     /**
      * Repositorio base
      */
-    private final BaseCrudRepositorio<T> baseCrudRepositorio;
+    private BaseCrudRepositorio<T> baseCrudRepositorio;
 
     /**
      * Injeccion de dependencias
      * @param baseCrudRepositorio injeccion de BaseCrudRepositorio
      */
-    public BaseServiceImpl(final BaseCrudRepositorio<T> baseCrudRepositorio) {
+    public BaseServiceImpl(BaseCrudRepositorio<T> baseCrudRepositorio) {
         this.baseCrudRepositorio = baseCrudRepositorio;
     }
 
@@ -63,5 +62,5 @@ public class BaseServiceImpl<T extends IntegerIdDto> implements BaseService<T> {
         });
     }
 
-
+    
 }

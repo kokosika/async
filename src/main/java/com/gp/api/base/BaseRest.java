@@ -2,7 +2,6 @@ package com.gp.api.base;
 
 import com.gp.dto.base.IntegerIdDto;
 import com.gp.services.interfaces.base.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,9 +28,12 @@ public abstract class BaseRest<T extends IntegerIdDto> {
 
     /**
      * Injeccion de la base de los servicios para realizar metodos genericos
-     */
-    @Autowired
-    private BaseService<T> baseService;
+     */	
+    private final BaseService<T> baseService;
+    
+    public BaseRest(final BaseService<T> baseService) {
+    	this.baseService = baseService;
+    }
 
     /**
      * Metodo lo Get que genera una respuesta asincrona
@@ -56,21 +58,5 @@ public abstract class BaseRest<T extends IntegerIdDto> {
                     );
                 }
         );
-    }
-
-    /**
-     * Get del servicio
-     * @return retorna el tipo BaseService
-     */
-    protected BaseService<T> getBaseService() {
-        return baseService;
-    }
-
-    /**
-     * Set del servicio
-     * @param baseService set del tipo BaseServicio
-     */
-    protected void setBaseService(final BaseService<T> baseService) {
-        this.baseService = baseService;
-    }
+    }   
 }

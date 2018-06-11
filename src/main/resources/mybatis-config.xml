@@ -20,5 +20,6 @@
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mapper/dominio/tipo-usuario.xml"/>
+        <mapper resource="mybatis/mapper/aplicacion/usuario.xml"/>
     </mappers>
 </configuration>

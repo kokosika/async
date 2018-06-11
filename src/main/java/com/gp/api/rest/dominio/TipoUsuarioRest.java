@@ -30,7 +30,7 @@ public class TipoUsuarioRest extends BaseRest<TipoUsuarioDto> {
     private static final Logger LOGGER = LoggerFactory.getLogger(TipoUsuarioRest.class);
 
     public TipoUsuarioRest(final TipoUsuarioService tipoUsuarioService) {
-        setBaseService(tipoUsuarioService);
+        super(tipoUsuarioService);
         this.tipoUsuarioService = tipoUsuarioService;
     }
     

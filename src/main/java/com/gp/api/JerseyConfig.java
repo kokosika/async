@@ -1,5 +1,6 @@
 package com.gp.api;
 
+import com.gp.api.rest.aplicacion.UsuarioRest;
 import com.gp.api.rest.dominio.TipoUsuarioRest;
 
 import javax.ws.rs.ApplicationPath;
@@ -26,5 +27,6 @@ public class JerseyConfig extends ResourceConfig {
      */
     public JerseyConfig() {
         register(TipoUsuarioRest.class);
+        register(UsuarioRest.class);
     }
 }

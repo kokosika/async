@@ -5,6 +5,7 @@ import io.reactivex.Observable;
 
 import java.util.List;
 
+
 /**
  * Interfaz generica de todas las clases de tipo servicio.
  *
