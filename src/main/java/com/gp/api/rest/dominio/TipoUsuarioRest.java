@@ -100,5 +100,4 @@ public class TipoUsuarioRest extends BaseRest<TipoUsuarioDto> {
                 }
         );
     }
-
 }

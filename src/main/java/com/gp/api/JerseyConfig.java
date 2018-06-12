@@ -1,5 +1,6 @@
 package com.gp.api;
 
+import com.gp.api.auth.AuthRest;
 import com.gp.api.rest.aplicacion.UsuarioRest;
 import com.gp.api.rest.dominio.TipoUsuarioRest;
 
@@ -28,5 +29,6 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         register(TipoUsuarioRest.class);
         register(UsuarioRest.class);
+        register(AuthRest.class);
     }
 }

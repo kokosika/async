@@ -15,8 +15,16 @@ public abstract class DomainDto extends FechaEstadoDto {
 
     private String nombre;
     private String descripcion;
+    
+    
+    public DomainDto() {}
+    public DomainDto(String nombre, String descripcion) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
 
-    public String getNombre() {
+	public String getNombre() {
         return nombre;
     }
 

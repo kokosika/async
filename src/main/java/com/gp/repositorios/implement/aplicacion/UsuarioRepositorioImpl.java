@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -59,13 +60,14 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
 	 * @throws Exception
 	 */
     @SuppressWarnings("unchecked")
-	public UsuarioDto guardar(UsuarioDto usuario) throws Exception {
+	public Optional<UsuarioDto> guardar(UsuarioDto usuario) throws Exception {
     	LOGGER.info("[guardar] = BEGIN");
         Map<String, Object> params = new HashMap<>();
         ResultSet rs = null;
-        params.put("V_NOMBRE_USUARIO",usuario.getNombreUsuario() );
-        params.put("V_CONTACENA", usuario.getContracena());
-        params.put("V_TIPO_USUARIO", usuario.getTipoUsuarioId());
+        params.put("V_CORREO",usuario.getEmail());
+        params.put("V_CONTRACENA",usuario.getPassword());
+        params.put("V_NOMBRE",usuario.getName());
+        params.put("V_NOMBRE_USUARIO",usuario.getUsername());        
         params.put("DATA", rs);
         LOGGER.info("[guardar] = EJECUCION: guardar del mapper");
         usuarioMapper.guardar(params);
@@ -75,8 +77,9 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
         	LOGGER.info("[guardar] = THROW : Registro no se pudo guardar ");
        	 	throw new Exception("El registro no fue almacenado");
         }
+        Optional<UsuarioDto> option = Optional.of(result.get(0));
         LOGGER.info("[guardar] = END");
-        return result.get(0);
+        return option;
     }
     
     /**
@@ -87,7 +90,7 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
      * @throws Exception.
      */
     @SuppressWarnings("unchecked")
-	public UsuarioDto buscarPorId(Integer id) throws Exception {
+	public Optional<UsuarioDto> buscarPorId(Integer id) throws Exception {
     	 LOGGER.info("[buscarPorId] = BEGIN");
     	 Map<String, Object> params = new HashMap<>();
          ResultSet rs = null;
@@ -100,8 +103,37 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
         	 LOGGER.info("[buscarPorId] = THROW : Registro no Encontrado ");
         	 throw new Exception("El registro no fue encontrado");
          }
-         LOGGER.info("[buscarPorId] = END");         
-         return result.get(0);
+         LOGGER.info("[buscarPorId] = END");   
+         Optional<UsuarioDto> opcion = Optional.of(result.get(0));
+         return opcion;
+    }
+    
+    /**
+     * Metodo que busca a un usuario en la base de datos por medio de su nombre de usuario o
+     * su correo.
+     * 
+     * @param usuario usuario que se desea buscar
+     * @return retorna un opcional de usuario
+     * @throws Exception excepcion lanzada por si ocurre algun problema.
+     */
+    @SuppressWarnings("unchecked")
+    public Optional<UsuarioDto> buscarPorNombreOrMail(UsuarioDto usuario) throws Exception{
+    	LOGGER.info("[buscarPorNombreOrMail] = BEGIN");
+    	Map<String, Object> params = new HashMap<>();
+        ResultSet rs = null;
+        params.put("V_NOMBRE_USUARIO", usuario.getUsername()); 
+        params.put("V_CORREO", usuario.getEmail());   
+        params.put("DATA", rs);
+        LOGGER.info("[buscarPorNombreOrMail] Ejecucion del mapper");
+        usuarioMapper.buscarPorNombreOrMail(params);
+        List<UsuarioDto> result = (List<UsuarioDto>) params.get("DATA");
+        if(result.isEmpty()){
+       	 LOGGER.info("[buscarPorNombreOrMail] = THROW : Registro no Encontrado ");
+       	 	throw new Exception("El registro no fue encontrado");
+        }
+        Optional<UsuarioDto> opcion = Optional.of(result.get(0));
+        LOGGER.info("[buscarPorNombreOrMail] = END");   
+        return opcion;
     }
     
     /**
@@ -111,14 +143,15 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-	public UsuarioDto editar(UsuarioDto usuario) throws Exception {
+	public Optional<UsuarioDto> editar(UsuarioDto usuario) throws Exception {
     	 LOGGER.info("[editar] = BEGIN");
     	 Map<String, Object> params = new HashMap<>();
     	 ResultSet rs = null;
-    	 params.put("V_ID", usuario.getId());
-    	 params.put("V_NOMBRE_USUARIO",usuario.getNombreUsuario() );
-         params.put("V_CONTACENA", usuario.getContracena());
-         params.put("V_TIPO_USUARIO", usuario.getTipoUsuarioId());
+    	 params.put("V_ID",usuario.getId());
+    	 params.put("V_CORREO",usuario.getEmail());
+         params.put("V_CONTRACENA",usuario.getPassword());
+         params.put("V_NOMBRE",usuario.getName());
+         params.put("V_NOMBRE_USUARIO",usuario.getUsername());     
          params.put("DATA", rs);
          LOGGER.info("[editar] = EJECUCION: editar del mapper");
          usuarioMapper.editar(params);
@@ -128,8 +161,9 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
         	 LOGGER.info("[editar] = ERROR = El registro no fue encontrado");
         	 throw new Exception("El registro no fue encontrado");
          }
+         Optional<UsuarioDto> option = Optional.of(result.get(0));
          LOGGER.info("[editar] = END");         
-         return result.get(0);
+         return option;
     }
 	
 }

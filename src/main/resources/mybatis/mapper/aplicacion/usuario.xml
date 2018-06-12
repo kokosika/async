@@ -21,13 +21,50 @@
         <id column="id" property="id"/>
         <result column="fecha_creacion" property="fechaCreacion"/>
         <result column="fecha_ultimo_update" property="fechaUltimoUpdate"/>
-        <result column="nombre_usuario" property="nombreUsuario"/>
-        <result column="contracena" property="contracena"/>
-        <result column="tipo_usuario_id" property="tipoUsuarioId"/>
-        <result column="tipo_usuario_nombre" property="tipoUsuarioNombre"/>
+        <result column="email" property="email"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="username" property="username"/>
     </resultMap>
 
     <select id="buscarTodos" resultMap="UsuarioResult" statementType="CALLABLE">
-        {call PKG_USUARIOS.PRC_GET_USUARIOS(#{DATA, jdbcType=CURSOR, resultMap=TipoUsuarioResult, javaType=java.sql.ResultSet, mode=OUT})}
+        {call PKG_USUARIOS.PRC_GET_USUARIOS(#{DATA, jdbcType=CURSOR, resultMap=UsuarioResult, javaType=java.sql.ResultSet, mode=OUT})}
     </select>
+    
+    <select id="guardar" resultMap="UsuarioResult" statementType="CALLABLE">
+        {call PKG_USUARIOS.PRC_INS_USUARIO(
+        	#{V_CORREO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_CONTRACENA, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_NOMBRE, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_NOMBRE_USUARIO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{DATA, jdbcType=CURSOR, resultMap=UsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
+    
+    <select id="editar" resultMap="UsuarioResult" statementType="CALLABLE">
+        {call PKG_USUARIOS.PRC_GET_BUSCAR_USUARIO_PNOM(
+        	#{V_ID, jdbcType=NUMERIC, javaType=java.lang.Integer, mode=IN},
+        	#{V_CORREO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_CONTRACENA, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_NOMBRE, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_NOMBRE_USUARIO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},	
+        	#{DATA, jdbcType=CURSOR, resultMap=UsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
+    
+    <select id="buscarPorId" resultMap="UsuarioResult" statementType="CALLABLE">
+        {call PKG_USUARIOS.PRC_GET_BUSCAR_USUARIO_POR_ID(
+        	#{V_ID, jdbcType=NUMERIC, javaType=java.lang.Integer, mode=IN},        	
+        	#{DATA, jdbcType=CURSOR, resultMap=UsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
+    
+    <select id="buscarPorNombreOrMail" resultMap="UsuarioResult" statementType="CALLABLE">
+        {call PKG_USUARIOS.PRC_GET_BUSCAR_USUARIO_PNOM(
+        	#{V_NOMBRE_USUARIO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},
+        	#{V_CORREO, jdbcType=VARCHAR, javaType=java.lang.String, mode=IN},     	
+        	#{DATA, jdbcType=CURSOR, resultMap=UsuarioResult, javaType=java.sql.ResultSet, mode=OUT}
+        )}
+    </select>
+    
 </mapper>

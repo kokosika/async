@@ -17,6 +17,14 @@ public abstract class FechaEstadoDto extends IntegerIdDto {
 
     private Date fechaCreacion;
     private Date fechaUltimoUpdate;
+    
+    public FechaEstadoDto() {super ();}
+    public FechaEstadoDto (Integer id ,Date fechaCreacion, Date fechaUltimoUpdate) {
+    	super(id);
+    	this.fechaCreacion = fechaCreacion;
+    	this.fechaUltimoUpdate = fechaUltimoUpdate;
+    }
+    
 
     public Date getFechaCreacion() {
         return fechaCreacion;

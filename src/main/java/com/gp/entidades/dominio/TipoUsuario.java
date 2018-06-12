@@ -1,14 +1,14 @@
 package com.gp.entidades.dominio;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gp.entidades.aplicacion.Usuario;
-import com.gp.entidades.base.DomainEntity;
-
-import java.util.Set;
-
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import org.hibernate.annotations.NaturalId;
+
+import com.gp.entidades.base.FechaEstadoEntity;
+import com.gp.entidades.enumes.NombreRoles;
 
 /**
  * Entidad encargada de registrar todos los tipos de usuario del sistema.
@@ -17,23 +17,31 @@ import javax.persistence.OneToMany;
  * @version 1.0
  * @see com.gp.entidades.base.FechaEstadoEntity
  * @see com.gp.entidades.base.IntegerIdEntity
- * @see com.gp.entidades.base.DomainEntity
  */
 @Entity(name = "TBL_TIPO_USUARIO")
-public class TipoUsuario extends DomainEntity {
+public class TipoUsuario extends FechaEstadoEntity {
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoUsuario")
-	@JsonIgnore
-	
-	
-	private Set<Usuario> usuarios;
+	@Enumerated(EnumType.STRING)
+    @NaturalId
+    @Column(length = 60)
+    private NombreRoles nombre;
+	@Column(length = 100)
+	private String descripcion;
 
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
+	public NombreRoles getNombre() {
+		return nombre;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setNombre(NombreRoles nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
 	

@@ -15,20 +15,16 @@ public class UsuarioValidacionImpl extends ValidacionUtilMethod implements Usuar
         StringBuilder errores = new StringBuilder();
         errores.append(ValidacionUtil.notNullString
                 .or(ValidacionUtil.notEmptyString)
-                .resultadoGenerico(usuario.getNombreUsuario()).getFieldNameIfInvalid("El nombre de usuario no puede ser null o estar vacio").orElse(""));
+                .resultadoGenerico(usuario.getUsername()).getFieldNameIfInvalid("El nombre de usuario no puede ser null o estar vacio").orElse(""));
         errores.append(ValidacionUtil.stringBetween(1,50)
-                .resultadoGenerico(usuario.getNombreUsuario()).getFieldNameIfInvalid("El tamaño del nombre de usuario no puede superar los 50 caracteres").orElse(""));
+                .resultadoGenerico(usuario.getUsername()).getFieldNameIfInvalid("El tamaño del nombre de usuario no puede superar los 50 caracteres").orElse(""));
         
         errores.append(ValidacionUtil.notNullString
                 .or(ValidacionUtil.notEmptyString)
-                .resultadoGenerico(usuario.getContracena()).getFieldNameIfInvalid("La contraceña no puede ser null o estar vacio").orElse(""));
+                .resultadoGenerico(usuario.getPassword()).getFieldNameIfInvalid("La contraceña no puede ser null o estar vacio").orElse(""));
         errores.append(ValidacionUtil.stringBetween(1,50)
-                .resultadoGenerico(usuario.getContracena()).getFieldNameIfInvalid("El tamaño de la contraceña no puede superar los 50 caracteres").orElse(""));
-        
-        errores.append(ValidacionUtil.notNullInteger
-        		.or(ValidacionUtil.integerLessThan(0))
-        		.resultadoGenerico(usuario.getTipoUsuarioId()).getFieldNameIfInvalid("El id del tipo de usuario no puede ser null o menor a 0").orElse(""));
-        
+                .resultadoGenerico(usuario.getPassword()).getFieldNameIfInvalid("El tamaño de la contraceña no puede superar los 100 caracteres").orElse(""));
+                
         String error = errores.toString();
         if(!error.isEmpty())
             throw new Exception(error);

@@ -4,35 +4,46 @@ import com.gp.dto.base.FechaEstadoDto;
 
 public class UsuarioDto extends FechaEstadoDto {
 
-	private String nombreUsuario;
-	private String contracena;
-	private Integer tipoUsuarioId;
-	private String tipoUsuarioNombre;
+	private String email;
+	private String name;
+	private String password;
+	private String username;
 	
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public UsuarioDto() {}
+	
+	public UsuarioDto(String email, String name, String password, String userName) {
+		super();
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.username = userName;
 	}
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	
+	public String getEmail() {
+		return email;
 	}
-	public String getContracena() {
-		return contracena;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public void setContracena(String contracena) {
-		this.contracena = contracena;
+	public String getName() {
+		return name;
 	}
-	public Integer getTipoUsuarioId() {
-		return tipoUsuarioId;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setTipoUsuarioId(Integer tipoUsuarioId) {
-		this.tipoUsuarioId = tipoUsuarioId;
+	public String getPassword() {
+		return password;
 	}
-	public String getTipoUsuarioNombre() {
-		return tipoUsuarioNombre;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public void setTipoUsuarioNombre(String tipoUsuarioNombre) {
-		this.tipoUsuarioNombre = tipoUsuarioNombre;
+	public String getUsername() {
+		return username;
 	}
+	public void setUsername(String userName) {
+		this.username = userName;
+	}
+	
 	
 	
 	

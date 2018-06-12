@@ -10,6 +10,11 @@ public abstract class IntegerIdDto {
 
     private Integer id;
 
+    public IntegerIdDto() {}
+    public IntegerIdDto(Integer id) {
+    	this.id = id;
+    }
+    
     public Integer getId() {
         return id;
     }
