@@ -48,6 +48,7 @@ public class TipoUsuarioRepositorioImpl extends BaseCrudRepositorioImpl<TipoUsua
      */
     public TipoUsuarioRepositorioImpl(final TipoUsuarioMapper tipoUsuarioMapper) {
         super(tipoUsuarioMapper);
+        LOGGER.info("Injección de dependencias de la clase.");
         this.tipoUsuarioMapper = tipoUsuarioMapper;
     }
 

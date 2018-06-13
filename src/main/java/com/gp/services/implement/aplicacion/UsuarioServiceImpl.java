@@ -42,6 +42,7 @@ public class UsuarioServiceImpl extends BaseServiceImpl<UsuarioDto> implements U
      */
 	public UsuarioServiceImpl(final UsuarioRepositorio usuarioRepositorio, final UsuarioValidacion usuarioValidacion) {
 		super(usuarioRepositorio);
+		LOGGER.info("Injección de dependencias de la clase.");
 		this.usuarioRepositorio = usuarioRepositorio;
 		this.usuarioValidacion = usuarioValidacion;
 	}

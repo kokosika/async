@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Configuration
 @Component
-@ApplicationPath(value = "api/rest")
+//@ApplicationPath(value = "api/rest")
 public class JerseyConfig extends ResourceConfig {
     /**
      * Constructor que crea una instancia de todos los servicios

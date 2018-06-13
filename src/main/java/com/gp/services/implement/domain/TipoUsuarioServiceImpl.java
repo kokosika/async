@@ -41,6 +41,7 @@ public class TipoUsuarioServiceImpl extends BaseServiceImpl<TipoUsuarioDto> impl
      */
     public TipoUsuarioServiceImpl(final TipoUsuarioRepositorio tipoUsuarioRepositorio,final TipoUsuarioValidacion tipoUsuarioValidacion) {
         super(tipoUsuarioRepositorio);
+        LOGGER.info("Injección de dependencias de la clase.");
         this.tipoUsuarioRepositorio = tipoUsuarioRepositorio;
         this.tipoUsuarioValidacion = tipoUsuarioValidacion;
     }
