@@ -1,21 +1,15 @@
 package com.gp.entidades.aplicacion;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.gp.entidades.base.FechaEstadoEntity;
+import com.gp.entidades.dominio.RolUsuario;
+import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
-
-import com.gp.entidades.base.FechaEstadoEntity;
-import com.gp.entidades.dominio.TipoUsuario;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Entidad encargada de registrar todos los usuarios del sistema
@@ -51,7 +45,7 @@ public class Usuario extends FechaEstadoEntity {
     @JoinTable(name = "TBL_USUARIO_ROLES",
             joinColumns = @JoinColumn(name = "USUARIO_ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLES_ID"))
-    private Set<TipoUsuario> roles = new HashSet<>();
+    private Set<RolUsuario> roles = new HashSet<>();
 
     public Usuario(Integer id,String name, String username, String email, String password) {
     	this.id = id;
@@ -95,11 +89,11 @@ public class Usuario extends FechaEstadoEntity {
 		this.password = password;
 	}
 
-	public Set<TipoUsuario> getRoles() {
+    public Set<RolUsuario> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<TipoUsuario> roles) {
+    public void setRoles(Set<RolUsuario> roles) {
 		this.roles = roles;
 	}
     

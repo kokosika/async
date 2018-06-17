@@ -1,6 +1,9 @@
 package com.gp.config.seguridad;
 
 
+import com.gp.seguridad.CustomUserDetailsService;
+import com.gp.seguridad.JwtAuthenticationEntryPoint;
+import com.gp.seguridad.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +19,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.gp.seguridad.CustomUserDetailsService;
-import com.gp.seguridad.JwtAuthenticationEntryPoint;
-import com.gp.seguridad.JwtAuthenticationFilter;
 
 
 @Configuration
@@ -77,7 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()                    
                     .antMatchers("/api/rest/auth/**")
                     	.permitAll()
-                    .anyRequest()
+
+                .anyRequest()
                         .authenticated();
 
         // Add our custom JWT security filter

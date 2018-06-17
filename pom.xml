@@ -64,7 +64,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
+        <!-- https://mvnrepository.com/artifact/net.sf.mpxj/mpxj -->
+        <dependency>
+            <groupId>net.sf.mpxj</groupId>
+            <artifactId>mpxj</artifactId>
+            <version>5.1.4</version>
+        </dependency>
+
         <!-- Seguridad -->
         <dependency>
 			<groupId>org.springframework.boot</groupId>

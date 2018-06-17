@@ -1,22 +1,20 @@
 package com.gp.repositorios.implement.aplicacion;
 
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
+import com.gp.dto.aplicacion.UsuarioDto;
+import com.gp.mapper.aplicacion.UsuarioMapper;
+import com.gp.repositorios.implement.base.BaseCrudRepositorioImpl;
+import com.gp.repositorios.interfaces.aplicacion.UsuarioRepositorio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
-import com.gp.dto.aplicacion.UsuarioDto;
-import com.gp.mapper.aplicacion.UsuarioMapper;
-import com.gp.repositorios.implement.base.BaseCrudRepositorioImpl;
-import com.gp.repositorios.interfaces.aplicacion.UsuarioRepositorio;
+import javax.transaction.Transactional;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Implementacion del repositorio de usuarios.
@@ -62,7 +60,7 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
 	 */
     @SuppressWarnings("unchecked")
 	public Optional<UsuarioDto> guardar(UsuarioDto usuario) throws Exception {
-    	LOGGER.info("[guardar] = BEGIN");
+        LOGGER.info("[guardar] BEGIN");
         Map<String, Object> params = new HashMap<>();
         ResultSet rs = null;
         params.put("V_CORREO",usuario.getEmail());
@@ -70,16 +68,16 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
         params.put("V_NOMBRE",usuario.getName());
         params.put("V_NOMBRE_USUARIO",usuario.getUsername());        
         params.put("DATA", rs);
-        LOGGER.info("[guardar] = EJECUCION: guardar del mapper");
+        LOGGER.info("[guardar] EJECUCION: guardar del mapper");
         usuarioMapper.guardar(params);
-        LOGGER.info("[guardar] = Extracion de los datos");
+        LOGGER.info("[guardar] Extracion de los datos");
         List<UsuarioDto> result = (List<UsuarioDto>) params.get("DATA");
         if(result.isEmpty()){
-        	LOGGER.info("[guardar] = THROW : Registro no se pudo guardar ");
+            LOGGER.info("[guardar] THROW : Registro no se pudo guardar ");
        	 	throw new Exception("El registro no fue almacenado");
         }
         Optional<UsuarioDto> option = Optional.of(result.get(0));
-        LOGGER.info("[guardar] = END");
+        LOGGER.info("[guardar] END");
         return option;
     }
     
@@ -88,11 +86,11 @@ public class UsuarioRepositorioImpl extends BaseCrudRepositorioImpl<UsuarioDto> 
      * 
      * @param id del registro.
      * @return el registro como usuario.
-     * @throws Exception.
+     * @throws Exception excepcion lanzada por si ocurre algun problema.
      */
     @SuppressWarnings("unchecked")
 	public Optional<UsuarioDto> buscarPorId(Integer id) throws Exception {
-    	 LOGGER.info("[buscarPorId] = BEGIN");
+        LOGGER.info("[buscarPorId] BEGIN");
     	 Map<String, Object> params = new HashMap<>();
          ResultSet rs = null;
          params.put("V_ID", id);         

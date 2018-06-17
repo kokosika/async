@@ -1,24 +1,23 @@
 package com.gp.seguridad;
 
-import java.util.Date;
-
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.Date;
 
+/**
+ * Clase que genera y valida los token que genera el sistema.
+ *
+ * @author Franco Cortez
+ * @version 1.0
+ */
 @Component
 public class JwtTokenProvider {
-	private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @Value("${app.jwtSecret}")
     private String jwtSecret;
@@ -26,6 +25,12 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
+    /**
+     * Generar Token para authentificacion al momento de hacer el login
+     *
+     * @param authentication authentificacion via spring security
+     * @return el token para la autorizacion.
+     */
     public String generateToken(Authentication authentication) {
 
         UsuarioPrincipal userPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
@@ -37,10 +42,16 @@ public class JwtTokenProvider {
                 .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
 
+    /**
+     * Obtener el id del usuario a trabaes del token
+     *
+     * @param token token enviado
+     * @return el id del usuario
+     */
     public Integer getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -50,6 +61,11 @@ public class JwtTokenProvider {
         return Integer.parseInt(claims.getSubject());
     }
 
+    /**
+     * Validacion del token
+     * @param authToken token enviado del cliente para su validacion
+     * @return boolean de autentificacion.
+     */
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
